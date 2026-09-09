@@ -1,6 +1,6 @@
 package com.xworkz.cafeteria.initializer;
 
-import com.xworkz.cafeteria.configuration.CafeteriaConfig;
+import com.xworkz.cafeteria.configuration.CafeApplicationConfig;
 import com.xworkz.cafeteria.configuration.CafewebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -13,12 +13,12 @@ public class CafeApplicationInit extends AbstractAnnotationConfigDispatcherServl
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{CafeteriaConfig.class};
+        return new Class[0];
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{CafewebConfig.class};
+        return new Class[]{CafeApplicationConfig.class};
     }
 
     @Override

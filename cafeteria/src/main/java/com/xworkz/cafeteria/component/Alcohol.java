@@ -3,9 +3,10 @@ package com.xworkz.cafeteria.component;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Carpet {
+public class Alcohol {
 
-    public Carpet() {
-        System.out.println("Carpet created");
+    public Alcohol()
+    {
+        System.out.println("Alcohol created");
     }
 }

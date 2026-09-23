@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Cricket Team</title>
-
+    <title>Product</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
@@ -33,7 +32,8 @@
             margin-top: 15px;
         }
 
-        input {
+        input,
+        select {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -68,53 +68,52 @@
 
 <div class="container-box">
 
-    <h2>Cricket Team</h2>
+    <h2>Product</h2>
 
-    <form action="cricket" method="post">
+    <form action="product" method="post">
 
-        <label>Team Name</label>
+        <label>Product Name</label>
         <input type="text"
-               name="teamName"
-               placeholder="Enter Team Name">
+               name="productName"
+               placeholder="Enter Product Name">
 
-        <label>Captain Name</label>
+        <label>Brand</label>
         <input type="text"
-               name="captainName"
-               placeholder="Enter Captain Name">
+               name="brand"
+               placeholder="Enter Brand">
 
-        <label>Coach Name</label>
-        <input type="text"
-               name="coachName"
-               placeholder="Enter Coach Name">
+        <label>Category</label>
+        <select name="category">
 
-        <label>Home Ground</label>
-        <input type="text"
-               name="homeGround"
-               placeholder="Enter Home Ground">
+            <option value="">Select Category</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Furniture">Furniture</option>
 
-        <label>Country</label>
+        </select>
+
+        <label>Price</label>
+        <input type="number"
+               name="price"
+               placeholder="Enter Price">
+
+        <label>Availability</label>
 
         <div class="radio-container">
 
             <label>
                 <input type="radio"
-                       name="country"
-                       value="India">
-                India
+                       name="availability"
+                       value="Available">
+                Available
             </label>
 
             <label>
                 <input type="radio"
-                       name="country"
-                       value="Australia">
-                Australia
-            </label>
-
-            <label>
-                <input type="radio"
-                       name="country"
-                       value="England">
-                England
+                       name="availability"
+                       value="Not Available">
+                Not Available
             </label>
 
         </div>

@@ -19,6 +19,11 @@
         <a class="text-white text-decoration-none" href="register.jsp">Register</a>
         <a class="text-white text-decoration-none" href="temple.jsp">Temple</a>
           <a class="text-white text-decoration-none" href="cricketTeam.jsp">Cricket</a>
+          <a class="text-white text-decoration-none" href="product.jsp">Product</a>
+             <a class="text-white text-decoration-none" href="contact.jsp">Contact</a>
+              <a class="text-white text-decoration-none" href="mobile.jsp">Mobile</a>
+               <a class="text-white text-decoration-none" href="camera.jsp">Camera</a>
+                   <a class="text-white text-decoration-none" href="movie.jsp">Movie</a>
     </nav>
 
 </div>

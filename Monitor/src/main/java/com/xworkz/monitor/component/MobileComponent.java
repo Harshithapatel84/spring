@@ -1,6 +1,8 @@
 package com.xworkz.monitor.component;
 
 import com.xworkz.monitor.dto.MobileDTO;
+import com.xworkz.monitor.service.MobileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +15,16 @@ public class MobileComponent {
         System.out.println("mobile component is created");
     }
 
+    @Autowired
+    private MobileService mobileService;
+
     @RequestMapping("/mobile")
     public String mobile(MobileDTO mobileDTO, Model model) {
 
         System.out.println("running mobile in mobile component");
         System.out.println("mobileDTO: " + mobileDTO);
         model.addAttribute("message", "Mobile details saved");
+        this.mobileService.ValidateAndSave(mobileDTO);
         return "/mobile.jsp";
     }
 }

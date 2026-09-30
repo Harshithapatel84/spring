@@ -29,6 +29,7 @@
 
         <div class="text-center mt-2">
             <a class="text-white text-decoration-none" href="weather.jsp">Weather</a>
+            <a class="text-white text-decoration-none" href="country.jsp">Country</a>
         </div>
 
     </nav>

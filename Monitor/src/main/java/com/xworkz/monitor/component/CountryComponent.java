@@ -8,10 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @RequestMapping("/")
@@ -24,7 +28,8 @@ public class CountryComponent {
     @Autowired
     CountryService countryService;
 
-    @RequestMapping("/country")
+    @PostMapping("/country")
+    //@RequestMapping("/country")
     public String showData(@Valid CountryDTO countryDTO, BindingResult bindingResult, Model model)
     {
         System.out.println("running country in countryComponent");
@@ -41,7 +46,20 @@ public class CountryComponent {
             model.addAttribute("message","country details saved");
             model.addAttribute("countryDto",new CountryDTO());
         }
+        return "/country.jsp";
+    }
+    @GetMapping("/country")
+    public String showData(Model model) {
+        System.out.println("running showData, loading country.jsp");
+
+        List<String> languages = Stream.of("Hindi", "Kannada", "English", "Telugu").collect(Collectors.toList());
+        List<Integer> noOfStates = Stream.of(5, 10, 20, 30, 40).collect(Collectors.toList());
+        model.addAttribute("languages", languages);
+        model.addAttribute("noOfStates", noOfStates);
+        model.addAttribute("countryDto", new CountryDTO());
 
         return "/country.jsp";
     }
+
+
 }

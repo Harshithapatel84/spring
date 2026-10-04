@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,10 +22,20 @@ import java.util.stream.Stream;
 @RequestMapping("/")
 public class CountryComponent {
 
+    private List<String> languages;
+    private List<Integer> noOfStates;
     public CountryComponent() {
         System.out.println("CountryComponent is created");
     }
 
+    @PostConstruct
+    public void onInit()
+    {
+        System.out.println("running onInit ");
+        languages = Stream.of("Hindi", "Kannada", "English", "Telugu").collect(Collectors.toList());
+         noOfStates = Stream.of(5, 10, 20, 30, 40).collect(Collectors.toList());
+
+    }
     @Autowired
     CountryService countryService;
 
@@ -45,18 +56,19 @@ public class CountryComponent {
             System.out.println("no validation error continue to execute");
             model.addAttribute("message","country details saved");
             model.addAttribute("countryDto",new CountryDTO());
+
         }
+        model.addAttribute("languages",languages);
+        model.addAttribute("noOfStates",noOfStates);
         return "/country.jsp";
     }
     @GetMapping("/country")
     public String showData(Model model) {
         System.out.println("running showData, loading country.jsp");
 
-        List<String> languages = Stream.of("Hindi", "Kannada", "English", "Telugu").collect(Collectors.toList());
-        List<Integer> noOfStates = Stream.of(5, 10, 20, 30, 40).collect(Collectors.toList());
         model.addAttribute("languages", languages);
         model.addAttribute("noOfStates", noOfStates);
-        model.addAttribute("countryDto", new CountryDTO());
+       model.addAttribute("countryDto", new CountryDTO());
 
         return "/country.jsp";
     }

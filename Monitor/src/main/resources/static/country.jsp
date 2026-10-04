@@ -29,7 +29,7 @@
         <label class="form-label">Language</label>
         <select name="language" class="form-select">
             <c:forEach items="${languages}" var="language">
-                <option value="${language}">${language}</option>
+                <option value="${language}" selected="${language==countryDto.language}">${language}</option>
             </c:forEach>
         </select>
     </div>
@@ -38,7 +38,7 @@
         <label class="form-label">Number of States</label>
         <select name="noOfState" class="form-select">
             <c:forEach items="${noOfStates}" var="noOfState">
-                <option value="${noOfState}">${noOfState}</option>
+                <option value="${noOfState}" selected="${noOfState==countryDto.noOfState}">${noOfState}</option>
             </c:forEach>
         </select>
     </div>

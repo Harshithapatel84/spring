@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name="wine")
+@NamedQuery(name="findAll",query="from WineEntity")
 public class WineEntity {
 
     @Id

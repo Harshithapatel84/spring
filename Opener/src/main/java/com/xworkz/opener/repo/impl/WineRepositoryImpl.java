@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class WineRepositoryImpl implements WineRepository {
@@ -20,5 +22,14 @@ public class WineRepositoryImpl implements WineRepository {
         System.out.println("running Save method in WineRepositoryImpl ");
         entityManager.persist(wineEntity);
 
+    }
+
+    @Override
+    public List<WineEntity> findAll() {
+        System.out.println("findall method is called");
+        List<WineEntity> wineEntities=this.entityManager.
+                createNamedQuery("findAll", WineEntity.class).getResultList();
+        System.out.println("wineEntity List total:"+wineEntities.size());
+        return wineEntities;
     }
 }

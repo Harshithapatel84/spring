@@ -15,6 +15,7 @@
 
 <body>
 
+<a href="${pageContext.request.contextPath}/wine/readAll">ShowAll</a>
 <h2 class="text-center text-primary">Wine Information</h2>
 
 <form action="wine" method="post">

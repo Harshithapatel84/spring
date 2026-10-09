@@ -46,14 +46,22 @@ public class WineController {
             model.addAttribute("wineDto",new WineDTO());
 
         }
-        return "/wine.jsp";
+        return "wine";
     }
 
     @GetMapping
     public String showWine(Model model) {
         System.out.println("Running showWine in WineController");
         model.addAttribute("wineDto", new WineDTO());
-        return "/wine.jsp";
+        return "wine";
+    }
+
+    @GetMapping("/readAll")
+    public String showAll(Model model) {
+        System.out.println("running showAll in wineComponent");
+        List<WineDTO> wineDTOList=this.wineService.findAll();
+        model.addAttribute("wineDTOList",wineDTOList);
+        return "wineDisplay";
     }
 
 }

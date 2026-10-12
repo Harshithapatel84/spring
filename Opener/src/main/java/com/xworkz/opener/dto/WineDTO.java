@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Data
 public class WineDTO {
 
+    private int id;
+
     @NotBlank(message = "company name cannot be blank")
     private String companyName;
 

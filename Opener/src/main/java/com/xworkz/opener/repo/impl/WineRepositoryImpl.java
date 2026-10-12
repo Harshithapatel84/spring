@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class WineRepositoryImpl implements WineRepository {
@@ -31,5 +32,11 @@ public class WineRepositoryImpl implements WineRepository {
                 createNamedQuery("findAll", WineEntity.class).getResultList();
         System.out.println("wineEntity List total:"+wineEntities.size());
         return wineEntities;
+    }
+
+    @Override
+    public Optional<WineEntity> findById(int id) {
+        WineEntity wineEntity =this. entityManager.find(WineEntity.class, id);
+        return Optional.ofNullable(wineEntity);
     }
 }

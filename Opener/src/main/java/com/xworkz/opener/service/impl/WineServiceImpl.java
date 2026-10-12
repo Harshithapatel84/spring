@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -54,5 +55,24 @@ public class WineServiceImpl implements WineService {
         System.out.println("No entities exist");
         return Collections.emptyList();
     }
+
+
+    @Override
+    public WineDTO findById(int id) {
+        System.out.println("running id in service");
+        if (id > 0) {
+            System.out.println("id is positive, invoke repository");
+            Optional<WineEntity> optional = this.wineRepository.findById(id);
+            if (optional.isPresent()) {
+                WineEntity wineEntity = optional.get();
+                WineDTO wineDTO = new WineDTO();
+                BeanUtils.copyProperties(wineEntity, wineDTO);
+                return wineDTO;
+            }
+        }
+        System.out.println("id is not positive / data is not there");
+        return null;
+    }
 }
+
 

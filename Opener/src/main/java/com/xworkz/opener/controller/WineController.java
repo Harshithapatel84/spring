@@ -10,6 +10,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -63,5 +64,20 @@ public class WineController {
         model.addAttribute("wineDTOList",wineDTOList);
         return "wineDisplay";
     }
+
+
+    @GetMapping("/editWine")
+    public String editWine(Model model, @RequestParam int id) {
+        System.out.println("running editWine in wineComponent");
+        System.out.println("id to edit: " + id);
+        WineDTO wineDTO = this.wineService.findById(id);
+        if (wineDTO != null) {
+            model.addAttribute("wineDto", wineDTO);
+        } else {
+            model.addAttribute("error", "No wine found with id: " + id);
+        }
+        return "wine";
+    }
+
 
 }

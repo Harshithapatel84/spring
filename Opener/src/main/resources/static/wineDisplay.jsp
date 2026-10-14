@@ -7,8 +7,14 @@
 </head>
 <body>
 
-    <h2>Wine Details</h2>
 
+
+<h2>Wine Details</h2>
+    <c:if test="${not empty message}">
+        <p style="color: green; font-weight: bold;">
+            ${message}
+        </p>
+    </c:if>
     <table border="1">
         <tr>
             <th>ID</th>

@@ -21,7 +21,7 @@ public class WineRepositoryImpl implements WineRepository {
     @Override
     public void save(WineEntity wineEntity) {
         System.out.println("running Save method in WineRepositoryImpl ");
-        entityManager.persist(wineEntity);
+        entityManager.merge(wineEntity);
 
     }
 

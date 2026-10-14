@@ -52,6 +52,14 @@ public class DatabaseConfiguration {
     }
 
     @Bean
+    public Properties hibernateProperties(){
+        Properties properties = new Properties();
+        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.format_sql", "true");
+        return properties;
+    }
+
+    @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         System.out.println("running transactionManager()");
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();

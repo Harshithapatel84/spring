@@ -76,8 +76,28 @@ public class WineController {
         } else {
             model.addAttribute("error", "No wine found with id: " + id);
         }
-        return "wine";
+
+        return "wineUpdate";
     }
 
+    @PostMapping("/wineUpdate")
+    public String updateWine(Model model, @Valid WineDTO wineDTO, BindingResult bindingResult) {
+        System.out.println("running update wine in wineController");
+        System.out.println("wineDto to update: " + wineDTO);
+        if (bindingResult.hasErrors()) {
+            System.out.println("There are validation errors, fix them");
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            model.addAttribute("validationErrors", errors);
+            model.addAttribute("wineDto", wineDTO);
 
+        } else {
+
+            System.out.println("No validation errors, continue");
+            wineService.validateAndSave(wineDTO);
+            model.addAttribute("updateMessage", "Wine details updated successfully");
+            model.addAttribute("wineDto", wineDTO);
+        }
+
+        return "wineUpdate";
+    }
 }

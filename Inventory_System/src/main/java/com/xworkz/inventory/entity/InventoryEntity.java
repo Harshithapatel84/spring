@@ -12,22 +12,23 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "inventory")
+@NamedQuery(name="getmailId",query="select e from InventoryEntity e where e.email=:email")
 public class InventoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "name",nullable=false,length=50)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable=false,unique = true, length = 30)
     private String email;
 
-    @Column(name = "phNo")
+    @Column(name = "phNo",nullable = false,unique = true,length = 10)
     private Long phNo;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false,length = 20)
     private String password;
 
     public InventoryEntity() {

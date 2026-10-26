@@ -1,8 +1,9 @@
+
 package com.xworkz.inventory.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppWebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {

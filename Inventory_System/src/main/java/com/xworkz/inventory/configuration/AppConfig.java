@@ -1,31 +1,37 @@
+
 package com.xworkz.inventory.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import org.springframework.context.annotation.Bean;
-
 @Configuration
+@ComponentScan(basePackages = "com.xworkz.inventory")
+@PropertySource("classpath:application.properties")
 @EnableWebMvc
-@ComponentScan("com.xworkz.inventory")
 public class AppConfig {
 
     public AppConfig() {
-        System.out.println("Application configuration created");
+        System.out.println("AppConfig created");
     }
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
-        System.out.println("running internalResourceViewResolver");
+        System.out.println("Running internalResourceViewResolver()");
 
-        InternalResourceViewResolver viewResolver =
-                new InternalResourceViewResolver();
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/");
+        resolver.setSuffix(".jsp");
 
-        viewResolver.setPrefix("/");
-        viewResolver.setSuffix(".jsp");
+        return resolver;
+    }
 
-        return viewResolver;
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

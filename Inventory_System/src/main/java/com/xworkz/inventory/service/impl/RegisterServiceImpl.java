@@ -27,4 +27,12 @@ public class RegisterServiceImpl implements RegisterService {
         }
         return false;
     }
-}
+
+    @Override
+    public Boolean emailExist(String email) {
+
+            return registerRepo.isEmailExist(email);
+        }
+
+    }
+

@@ -10,7 +10,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "inventory")

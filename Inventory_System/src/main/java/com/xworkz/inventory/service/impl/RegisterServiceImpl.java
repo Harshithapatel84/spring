@@ -15,6 +15,9 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private RegisterRepo registerRepo;
 
+    @Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
+
     @Override
     public Boolean validateAndSave(RegisterDTO inventoryDTO) {
         System.out.println("running inventoryService in cerviceImpl");
@@ -51,7 +54,8 @@ public class RegisterServiceImpl implements RegisterService {
             if (registerEntity != null) {
                 if (bcryptPasswordEncoder.matches(
                         loginDTO.getPassword(),
-                        registerEntity.getPassword())) {
+                        registerEntity.getPassword()
+                );) {
 
                     registerDTO = new RegisterDTO();
                 }

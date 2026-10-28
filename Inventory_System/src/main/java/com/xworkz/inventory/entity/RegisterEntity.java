@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
+
 @ToString
 @Entity
 @Table(name = "inventory")
@@ -32,7 +33,10 @@ public class RegisterEntity {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    public RegisterEntity() {
-        System.out.println("InventoryEntity created");
-    }
+    @OneToOne(mappedBy = "register", cascade = CascadeType.ALL)
+    private AuditEntity audit;
+
+    //public RegisterEntity() {
+      //  System.out.println("InventoryEntity created");
+    //}
 }

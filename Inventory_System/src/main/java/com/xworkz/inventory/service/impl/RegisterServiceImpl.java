@@ -1,5 +1,6 @@
 package com.xworkz.inventory.service.impl;
 
+import com.xworkz.inventory.dto.LoginDTO;
 import com.xworkz.inventory.dto.RegisterDTO;
 import com.xworkz.inventory.entity.RegisterEntity;
 import com.xworkz.inventory.repo.RegisterRepo;
@@ -31,8 +32,33 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public Boolean emailExist(String email) {
 
-            return registerRepo.isEmailExist(email);
+        if (email == null || email.trim().isEmpty()) {
+            return false;
         }
-
+        return registerRepo.isEmailExist(email.trim());
     }
+
+    @Override
+    public RegisterDTO checkUserByLogin(LoginDTO loginDTO) {
+        System.out.println("checkLogin method is called");
+
+        RegisterDTO registerDTO = null;
+
+        if (loginDTO != null) {
+            RegisterEntity registerEntity =
+                    registerRepo.findEntityByEmail(loginDTO.getEmail());
+
+            if (registerEntity != null) {
+                if (bcryptPasswordEncoder.matches(
+                        loginDTO.getPassword(),
+                        registerEntity.getPassword())) {
+
+                    registerDTO = new RegisterDTO();
+                }
+            }
+        }
+        return registerDTO;
+    }
+
+}
 

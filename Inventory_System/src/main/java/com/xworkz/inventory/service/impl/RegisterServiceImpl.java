@@ -6,6 +6,7 @@ import com.xworkz.inventory.entity.RegisterEntity;
 import com.xworkz.inventory.repo.RegisterRepo;
 import com.xworkz.inventory.service.RegisterService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,7 @@ public class RegisterServiceImpl implements RegisterService {
                 if (bcryptPasswordEncoder.matches(
                         loginDTO.getPassword(),
                         registerEntity.getPassword()
-                );) {
+                )) {
 
                     registerDTO = new RegisterDTO();
                 }

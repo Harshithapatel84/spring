@@ -61,17 +61,22 @@ public class RegisterController {
             return "register";
         }
     }
-    public String login(LoginDTO loginDTO, Model model) {
-        System.out.println("loginDto is called:"+loginDTO);
-        RegisterDTO dto=registerService.checkUserByLogin(loginDTO);
-        System.out.println("dto:"+dto);
-        if (dto!=null) {
+    @PostMapping("/login")
+    public String login(@ModelAttribute LoginDTO loginDTO, Model model) {
+
+        System.out.println("loginDto is called: " + loginDTO);
+
+        RegisterDTO dto = registerService.checkUserByLogin(loginDTO);
+
+        System.out.println("dto: " + dto);
+
+        if (dto != null) {
             model.addAttribute("registerDto", dto);
             return "dashboard";
+        } else {
+            model.addAttribute("msg", "Login failed. Invalid email or password");
+            return "login";
         }
-            else{
-                model.addAttribute("msg","login failed");
-                return "login";
-            }
-        }
+    }
+
 }

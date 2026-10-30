@@ -103,6 +103,11 @@
         Register
     </button>
 
+    <p class="text-center mt-3">
+        Already registered?
+        <a href="${pageContext.request.contextPath}/register/login" class="text-primary text-decoration-none">Login</a>
+    </p>
+
     <div class="text-center mt-3">
         <a href="${pageContext.request.contextPath}/index.jsp"
            class="btn btn-outline-primary">

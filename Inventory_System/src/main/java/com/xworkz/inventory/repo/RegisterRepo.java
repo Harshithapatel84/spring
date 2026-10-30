@@ -8,4 +8,8 @@ public interface RegisterRepo {
     boolean isEmailExist(String email);
 
     RegisterEntity findEntityByEmail(String email);
+
+    RegisterEntity findById(Long id);
+
+    RegisterEntity update(RegisterEntity registerEntity);
 }

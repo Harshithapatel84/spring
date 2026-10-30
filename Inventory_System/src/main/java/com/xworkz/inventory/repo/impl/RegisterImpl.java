@@ -5,9 +5,7 @@ import com.xworkz.inventory.entity.RegisterEntity;
 import com.xworkz.inventory.repo.RegisterRepo;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
@@ -16,6 +14,9 @@ public class RegisterImpl implements RegisterRepo {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+//    @PersistenceUnit
+//    private EntityManagerFactory emf=null;
 
     public RegisterImpl() {
         System.out.println("InventoryImpl object created");
@@ -54,6 +55,58 @@ public class RegisterImpl implements RegisterRepo {
             e.printStackTrace();
         }
         return entity;
+    }
+
+    @Override
+    public RegisterEntity findById(Long id) {
+
+        RegisterEntity entity = null;
+
+        try {
+            entity = entityManager.find(RegisterEntity.class, id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return entity;
+    }
+
+    @Override
+    @Transactional
+    public RegisterEntity update(RegisterEntity registerEntity) {
+
+        RegisterEntity updatedEntity = null;
+
+        try {
+            RegisterEntity entity = entityManager.find(
+                    RegisterEntity.class, registerEntity.getId()
+            );
+
+            if (entity != null) {
+
+                entity.setName(registerEntity.getName());
+                entity.setEmail(registerEntity.getEmail());
+                entity.setPhNo(registerEntity.getPhNo());
+                entity.setPassword(registerEntity.getPassword());
+
+                AuditEntity auditEntity = entity.getAudit();
+
+                auditEntity.setUpdatedBy(
+                        registerEntity.getName() + " " + registerEntity.getEmail()
+                );
+
+                auditEntity.setUpdatedAt(LocalDateTime.now());
+
+                updatedEntity = entity;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return updatedEntity;
     }
 
 }

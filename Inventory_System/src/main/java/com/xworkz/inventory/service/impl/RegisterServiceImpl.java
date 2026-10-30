@@ -27,6 +27,8 @@ public class RegisterServiceImpl implements RegisterService {
             System.out.println("converting dto to entity");
             RegisterEntity registerEntity = new RegisterEntity();
             BeanUtils.copyProperties(inventoryDTO, registerEntity);
+            registerEntity.setPassword(
+                    bcryptPasswordEncoder.encode(inventoryDTO.getPassword()));
             this.registerRepo.save(registerEntity);
             return true;
         }
@@ -44,26 +46,73 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public RegisterDTO checkUserByLogin(LoginDTO loginDTO) {
+
         System.out.println("checkLogin method is called");
 
         RegisterDTO registerDTO = null;
 
         if (loginDTO != null) {
+
             RegisterEntity registerEntity =
                     registerRepo.findEntityByEmail(loginDTO.getEmail());
 
             if (registerEntity != null) {
+
                 if (bcryptPasswordEncoder.matches(
                         loginDTO.getPassword(),
                         registerEntity.getPassword()
                 )) {
 
                     registerDTO = new RegisterDTO();
+
+                    BeanUtils.copyProperties(registerEntity, registerDTO);
                 }
             }
         }
+
         return registerDTO;
     }
 
+    @Override
+    public RegisterDTO findById(Long id) {
+
+        RegisterEntity entity = registerRepo.findById(id);
+
+        RegisterDTO registerDTO = null;
+
+        if (entity != null) {
+
+            registerDTO = new RegisterDTO();
+
+            BeanUtils.copyProperties(entity, registerDTO);
+        }
+
+        return registerDTO;
+    }
+    @Override
+    public RegisterDTO update(RegisterDTO registerDTO) {
+
+        System.out.println("registerServiceImpl update method is called: " + registerDTO);
+
+        RegisterDTO updatedDto = null;
+
+        if (registerDTO != null) {
+
+            RegisterEntity registerEntity = new RegisterEntity();
+
+            BeanUtils.copyProperties(registerDTO, registerEntity);
+
+            RegisterEntity entity = registerRepo.update(registerEntity);
+
+            if (entity != null) {
+
+                updatedDto = new RegisterDTO();
+
+                BeanUtils.copyProperties(entity, updatedDto);
+            }
+        }
+
+        return updatedDto;
+    }
 }
 

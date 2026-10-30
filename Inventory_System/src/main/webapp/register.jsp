@@ -49,7 +49,8 @@
 
 <h2 class="text-center text-primary">Create Account</h2>
 
-<form action="${pageContext.request.contextPath}/register" method="post">
+<form action="${pageContext.request.contextPath}/register"
+      method="post" autocomplete="off">
 
     <div class="mb-3">
         <label class="form-label">Full Name</label>
@@ -58,6 +59,7 @@
                class="form-control"
                placeholder="Enter your name"
                value="${inventoryDTO.name}"
+               autocomplete="off"
                required>
     </div>
 
@@ -69,6 +71,7 @@
                class="form-control"
                placeholder="Enter your email"
                value="${inventoryDTO.email}"
+               autocomplete="off"
                onblur="checkEmailExit()"
                required>
 
@@ -82,6 +85,7 @@
                class="form-control"
                placeholder="Enter phone number"
                value="${inventoryDTO.phNo}"
+               autocomplete="off"
                required>
     </div>
 
@@ -91,6 +95,7 @@
                name="password"
                class="form-control"
                placeholder="Create a password"
+               autocomplete="new-password"
                required>
     </div>
 

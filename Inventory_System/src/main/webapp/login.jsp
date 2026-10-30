@@ -10,7 +10,7 @@
 
 <h2>Login Form</h2>
 
-<form action="${pageContext.request.contextPath}/login" method="post">
+<form action="${pageContext.request.contextPath}/register/login" method="post">
 
     <label>Email:</label>
     <input type="email" name="email" required>
@@ -23,6 +23,8 @@
     <button type="submit">Login</button>
 
 </form>
+
+<p style="color:red">${msg}</p>
 
 </body>
 </html>

@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -77,6 +74,30 @@ public class RegisterController {
             model.addAttribute("msg", "Login failed. Invalid email or password");
             return "login";
         }
+
+    }
+    @GetMapping("/login")
+    public String showLogin(Model model) {
+
+        model.addAttribute("loginDTO", new LoginDTO());
+
+        return "login";
+    }
+    @GetMapping("/updateById")
+    public String updateById(@RequestParam("id") Long id, Model model) {
+        RegisterDTO registerDTO=registerService.findById(id);
+        model.addAttribute("registerDto", registerDTO);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute RegisterDTO registerDTO, Model model) {
+
+        RegisterDTO dto = registerService.update(registerDTO);
+
+        model.addAttribute("registerDto", dto);
+
+        return "dashboard";
     }
 
 }

@@ -10,4 +10,8 @@ public Boolean validateAndSave(RegisterDTO inventoryDTO);
 Boolean emailExist(String email);
 
 RegisterDTO checkUserByLogin(LoginDTO loginDTO);
+
+    RegisterDTO findById(Long id);
+
+RegisterDTO update(RegisterDTO registerDTO);
 }

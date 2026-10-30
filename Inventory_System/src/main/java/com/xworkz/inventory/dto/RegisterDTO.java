@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class RegisterDTO {
 
     private Long id;
-    
+
     @NotBlank(message = "Name cannot be blank")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;

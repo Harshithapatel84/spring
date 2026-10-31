@@ -2,6 +2,7 @@
 package com.xworkz.inventory.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -28,6 +29,8 @@ public class RegisterDTO {
     @NotBlank(message = "Password cannot be blank")
     @Size(min = 8, message = "Password must contain at least 8 characters")
     private String password;
+
+    private MultipartFile file;
 
     public RegisterDTO() {
         System.out.println("InventoryDTO created");

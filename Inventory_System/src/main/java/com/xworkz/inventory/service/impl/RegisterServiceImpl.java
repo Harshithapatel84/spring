@@ -9,6 +9,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -96,7 +100,15 @@ public class RegisterServiceImpl implements RegisterService {
 
         RegisterDTO updatedDto = null;
 
-        if (registerDTO != null) {
+        if (registerDTO != null && registerDTO.getId() != null) {
+
+            MultipartFile file=registerDTO.getFile();
+            if (file!=null){
+                try{
+                    byte[] b=file.getBytes();
+                    Path path= Paths.get();
+                }
+            }
 
             RegisterEntity registerEntity = new RegisterEntity();
 

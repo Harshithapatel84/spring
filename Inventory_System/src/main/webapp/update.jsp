@@ -10,7 +10,7 @@
 
 <h2>Update Register Details</h2>
 
-<form action="${pageContext.request.contextPath}/register/update" method="post">
+<form action="${pageContext.request.contextPath}/register/update" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="id" value="${registerDto.id}">
 
@@ -26,9 +26,15 @@
     <input type="text" name="phNo" value="${registerDto.phNo}">
     <br><br>
 
+     <label for="img">profile Image:</label>
+        <input type="file" id="img" name="file"/>
+        <br /> <br />
+
+
     <label>Password:</label>
     <input type="password" name="password" value="${registerDto.password}">
     <br><br>
+
 
     <button type="submit">Update</button>
 

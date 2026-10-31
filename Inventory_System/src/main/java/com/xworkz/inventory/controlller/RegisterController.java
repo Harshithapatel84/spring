@@ -92,9 +92,9 @@ public class RegisterController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute RegisterDTO registerDTO, Model model) {
-
+        System.out.println("update method is called:"+registerDTO);
         RegisterDTO dto = registerService.update(registerDTO);
-
+        System.out.println("multipartFile"+registerDTO.getFile());
         model.addAttribute("registerDto", dto);
 
         return "dashboard";

@@ -4,13 +4,17 @@ import com.xworkz.inventory.dto.LoginDTO;
 import com.xworkz.inventory.dto.RegisterDTO;
 import com.xworkz.inventory.entity.RegisterEntity;
 import com.xworkz.inventory.repo.RegisterRepo;
+import com.xworkz.inventory.service.EmailService;
 import com.xworkz.inventory.service.RegisterService;
+import com.xworkz.inventory.util.InventoryUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -22,6 +26,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+    private EmailService emailService;
 
     @Override
     public Boolean validateAndSave(RegisterDTO inventoryDTO) {
@@ -104,9 +109,15 @@ public class RegisterServiceImpl implements RegisterService {
 
             MultipartFile file=registerDTO.getFile();
             if (file!=null){
-                try{
-                    byte[] b=file.getBytes();
-                    Path path= Paths.get();
+                try {
+                    byte[] b = file.getBytes();
+                    Path path = Paths.get(InventoryUtil.IMAGE_PATH + file.getOriginalFilename());
+                    Files.write(path, b);
+                    System.out.println("file saved successfully");
+                }
+                catch (IOException e)
+                {
+                    throw new RuntimeException(e);
                 }
             }
 
@@ -115,6 +126,7 @@ public class RegisterServiceImpl implements RegisterService {
             BeanUtils.copyProperties(registerDTO, registerEntity);
 
             RegisterEntity entity = registerRepo.update(registerEntity);
+
 
             if (entity != null) {
 
@@ -125,6 +137,17 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         return updatedDto;
+    }
+
+    @Override
+    public void sendEmail(String email) {
+        System.out.println("semd email method is called "+email);
+
+        if(email!=null){
+            String otp="123456";
+            emailService.sendEmail(email,otp);
+            System.out.println("email sent successfully");
+        }
     }
 }
 

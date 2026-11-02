@@ -14,4 +14,6 @@ RegisterDTO checkUserByLogin(LoginDTO loginDTO);
     RegisterDTO findById(Long id);
 
 RegisterDTO update(RegisterDTO registerDTO);
+
+void sendEmail(String email);
 }

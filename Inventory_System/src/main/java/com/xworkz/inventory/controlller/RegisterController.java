@@ -99,5 +99,16 @@ public class RegisterController {
 
         return "dashboard";
     }
+    @GetMapping("/userLogin")
+    public  String userLogin(){
+        return "emailLogin";
+    }
+
+    @PostMapping("/emailLogin")
+    public String emailLogin(@RequestParam("email") String email){
+        System.out.println("email to login:"+email);
+        registerService.sendEmail(email);
+        return "emailLogin";
+    }
 
 }

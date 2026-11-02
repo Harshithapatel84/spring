@@ -7,6 +7,7 @@
     <h2>Inventory System</h2>
     <a href="register">Register</a>
      <a href="login">Login
-     </a>
+     </a><br> <br>
+      <a href="${pageContext.request.contextPath}/register/userLogin">User Login</a>
 </body>
 </html>

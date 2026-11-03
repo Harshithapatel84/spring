@@ -26,6 +26,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+    @Autowired
     private EmailService emailService;
 
     @Override
@@ -141,13 +142,18 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public void sendEmail(String email) {
-        System.out.println("semd email method is called "+email);
 
-        if(email!=null){
-            String otp="123456";
-            emailService.sendEmail(email,otp);
-            System.out.println("email sent successfully");
+        System.out.println("sendEmail method is called: " + email);
+
+        if (email != null && !email.trim().isEmpty()) {
+
+            String otp = "123456";
+
+            emailService.sendEmail(email, otp);
+
+            System.out.println("Email sent successfully");
         }
     }
-}
+    }
+
 

@@ -105,10 +105,13 @@ public class RegisterController {
     }
 
     @PostMapping("/emailLogin")
-    public String emailLogin(@RequestParam("email") String email){
-        System.out.println("email to login:"+email);
-        registerService.sendEmail(email);
-        return "emailLogin";
+    public String emailLogin(@RequestParam("email") String email, Model model) {
+
+        model.addAttribute("email", email);
+        model.addAttribute("msg", "OTP sent successfully!");
+        return "otp";
     }
 
-}
+    }
+
+

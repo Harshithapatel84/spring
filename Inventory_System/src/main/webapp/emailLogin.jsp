@@ -25,21 +25,6 @@
             </button>
 
         </form>
-
-        <form action="${pageContext.request.contextPath}/register/verifyOtp" method="post">
-
-            <div class="mb-3 mt-3">
-                <label class="form-label">Enter OTP</label>
-                <input type="text" name="otp" class="form-control"
-                       placeholder="Enter OTP" maxlength="6" required>
-            </div>
-
-            <button type="submit" class="btn btn-success w-100">
-                Verify OTP
-            </button>
-
-        </form>
-
         <p class="text-success text-center mt-3">${msg}</p>
         <p class="text-danger text-center">${error}</p>
 

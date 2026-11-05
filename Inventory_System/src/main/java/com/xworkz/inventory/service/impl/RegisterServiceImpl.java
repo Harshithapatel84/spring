@@ -32,8 +32,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public Boolean validateAndSave(RegisterDTO inventoryDTO) {
         System.out.println("running inventoryService in cerviceImpl");
-        if (inventoryDTO!=null)
-        {
+        if (inventoryDTO != null) {
             System.out.println("converting dto to entity");
             RegisterEntity registerEntity = new RegisterEntity();
             BeanUtils.copyProperties(inventoryDTO, registerEntity);
@@ -99,6 +98,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         return registerDTO;
     }
+
     @Override
     public RegisterDTO update(RegisterDTO registerDTO) {
 
@@ -108,16 +108,14 @@ public class RegisterServiceImpl implements RegisterService {
 
         if (registerDTO != null && registerDTO.getId() != null) {
 
-            MultipartFile file=registerDTO.getFile();
-            if (file!=null){
+            MultipartFile file = registerDTO.getFile();
+            if (file != null) {
                 try {
                     byte[] b = file.getBytes();
                     Path path = Paths.get(InventoryUtil.IMAGE_PATH + file.getOriginalFilename());
                     Files.write(path, b);
                     System.out.println("file saved successfully");
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -141,19 +139,35 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public void sendEmail(String email) {
+    public Boolean sendEmail(String email) {
 
         System.out.println("sendEmail method is called: " + email);
 
         if (email != null && !email.trim().isEmpty()) {
 
-            String otp = "123456";
+            String otp = InventoryUtil.generateOtp();
 
-            emailService.sendEmail(email, otp);
+            Boolean isSent = emailService.sendEmail(email, otp);
 
-            System.out.println("Email sent successfully");
+            if (isSent != null && isSent) {
+
+                Boolean isSaved = registerRepo.saveOtp(email, otp);
+
+                if (isSaved != null && isSaved) {
+                    System.out.println("Email sent and OTP saved successfully");
+                    return true;
+                } else {
+                    System.out.println("OTP email sent, but database saving failed");
+                    return false;
+                }
+
+            } else {
+                System.out.println("Email sending failed");
+                return false;
+            }
         }
-    }
-    }
 
-
+        System.out.println("Email is invalid");
+        return false;
+    }
+}

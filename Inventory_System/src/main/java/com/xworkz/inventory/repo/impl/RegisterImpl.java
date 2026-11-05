@@ -109,4 +109,24 @@ public class RegisterImpl implements RegisterRepo {
         return updatedEntity;
     }
 
+    @Override
+    public Boolean saveOtp(String email, String otp) {
+        EntityManagerFactory entityManagerFactory=null
+       EntityManager m=entityManagerFactory.creatyEntityManager();
+       EntityTransaction transaction=m.getTransaction();
+       try{
+           transaction.begin();
+           int result=m.createNamedQuery("saveOtp").setParameter("email",email).setParameter("otp",otp).executeUpdate();
+      if (result>0){
+          return true;
+      }
+      transaction.commit();
+       }catch (PersistenceException e){
+
+       }finally{
+           m.close();;
+       }
+       return false;
+    }
+
 }

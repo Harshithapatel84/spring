@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "inventory")
 @NamedQuery(name = "getmailId", query = "select e from RegisterEntity e where e.email = :email")
+@NamedQuery(name = "updateOtpByEmail",query = "update RegisterEntity e set e.otp=:otp where e.email=:email")
 public class RegisterEntity {
 
     @Id
@@ -36,6 +37,11 @@ public class RegisterEntity {
     @OneToOne(mappedBy = "register", cascade = CascadeType.ALL)
     private AuditEntity audit;
 
+    @Column (name = "image_name")
+    private String imageName;
+
+    @Column(name = "otp")
+    private String otp;
     //public RegisterEntity() {
       //  System.out.println("InventoryEntity created");
     //}

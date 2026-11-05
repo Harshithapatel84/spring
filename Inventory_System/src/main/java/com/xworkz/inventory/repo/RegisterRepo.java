@@ -12,4 +12,6 @@ public interface RegisterRepo {
     RegisterEntity findById(Long id);
 
     RegisterEntity update(RegisterEntity registerEntity);
+
+    Boolean saveOtp(String email, String otp);
 }

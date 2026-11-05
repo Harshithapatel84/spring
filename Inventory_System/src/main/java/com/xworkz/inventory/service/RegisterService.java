@@ -15,5 +15,5 @@ RegisterDTO checkUserByLogin(LoginDTO loginDTO);
 
 RegisterDTO update(RegisterDTO registerDTO);
 
-void sendEmail(String email);
+Boolean sendEmail(String email);
 }

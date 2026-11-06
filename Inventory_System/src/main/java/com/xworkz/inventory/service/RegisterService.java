@@ -16,4 +16,6 @@ RegisterDTO checkUserByLogin(LoginDTO loginDTO);
 RegisterDTO update(RegisterDTO registerDTO);
 
 Boolean sendEmail(String email);
+
+RegisterDTO validateOtp(String email,String otp);
 }

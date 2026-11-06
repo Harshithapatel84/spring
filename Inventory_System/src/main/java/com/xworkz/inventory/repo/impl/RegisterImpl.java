@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 @Repository
 public class RegisterImpl implements RegisterRepo {
 
+    @PersistenceUnit
+    private EntityManagerFactory entityManagerFactory;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -79,24 +82,28 @@ public class RegisterImpl implements RegisterRepo {
         RegisterEntity updatedEntity = null;
 
         try {
-            RegisterEntity entity = entityManager.find(
-                    RegisterEntity.class, registerEntity.getId()
-            );
+            RegisterEntity entity = entityManager.find(RegisterEntity.class, registerEntity.getId());
 
             if (entity != null) {
 
                 entity.setName(registerEntity.getName());
                 entity.setEmail(registerEntity.getEmail());
                 entity.setPhNo(registerEntity.getPhNo());
-                entity.setPassword(registerEntity.getPassword());
+
+                if (registerEntity.getPassword() != null && !registerEntity.getPassword().isEmpty()) {
+                    entity.setPassword(registerEntity.getPassword());
+                }
+
+                if (registerEntity.getImageName() != null) {
+                    entity.setImageName(registerEntity.getImageName());
+                }
 
                 AuditEntity auditEntity = entity.getAudit();
 
-                auditEntity.setUpdatedBy(
-                        registerEntity.getName() + " " + registerEntity.getEmail()
-                );
-
-                auditEntity.setUpdatedAt(LocalDateTime.now());
+                if (auditEntity != null) {
+                    auditEntity.setUpdatedBy(registerEntity.getName() + " " + registerEntity.getEmail());
+                    auditEntity.setUpdatedAt(LocalDateTime.now());
+                }
 
                 updatedEntity = entity;
             }
@@ -108,23 +115,22 @@ public class RegisterImpl implements RegisterRepo {
 
         return updatedEntity;
     }
-
     @Override
     public Boolean saveOtp(String email, String otp) {
-        EntityManagerFactory entityManagerFactory=null
-       EntityManager m=entityManagerFactory.creatyEntityManager();
+       EntityManager m=entityManagerFactory.createEntityManager();
        EntityTransaction transaction=m.getTransaction();
        try{
            transaction.begin();
-           int result=m.createNamedQuery("saveOtp").setParameter("email",email).setParameter("otp",otp).executeUpdate();
-      if (result>0){
+           int result=m.createNamedQuery("updateOtpByEmail").setParameter("email",email).setParameter("otp",otp).executeUpdate();
+           transaction.commit();
+           if (result>0){
           return true;
       }
-      transaction.commit();
+
        }catch (PersistenceException e){
 
        }finally{
-           m.close();;
+           m.close();
        }
        return false;
     }

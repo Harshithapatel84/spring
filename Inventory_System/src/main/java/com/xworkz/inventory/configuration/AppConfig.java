@@ -36,6 +36,7 @@ public class AppConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
 public CommonsMultipartResolver multipartResolver()
 {
     CommonsMultipartResolver resolver=new CommonsMultipartResolver();

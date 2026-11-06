@@ -35,9 +35,12 @@ public class RegisterServiceImpl implements RegisterService {
         if (inventoryDTO != null) {
             System.out.println("converting dto to entity");
             RegisterEntity registerEntity = new RegisterEntity();
+            registerEntity.setPassword(bcryptPasswordEncoder.encode(inventoryDTO.getPassword()));
+
             BeanUtils.copyProperties(inventoryDTO, registerEntity);
-            registerEntity.setPassword(
-                    bcryptPasswordEncoder.encode(inventoryDTO.getPassword()));
+
+            registerEntity.setImageName("default.jpg");
+
             this.registerRepo.save(registerEntity);
             return true;
         }
@@ -109,7 +112,8 @@ public class RegisterServiceImpl implements RegisterService {
         if (registerDTO != null && registerDTO.getId() != null) {
 
             MultipartFile file = registerDTO.getFile();
-            if (file != null) {
+
+            if (file != null && !file.isEmpty()) {
                 try {
                     byte[] b = file.getBytes();
                     Path path = Paths.get(InventoryUtil.IMAGE_PATH + file.getOriginalFilename());
@@ -119,18 +123,15 @@ public class RegisterServiceImpl implements RegisterService {
                     throw new RuntimeException(e);
                 }
             }
-
             RegisterEntity registerEntity = new RegisterEntity();
-
             BeanUtils.copyProperties(registerDTO, registerEntity);
 
+            if (file != null && !file.isEmpty()) {
+                registerEntity.setImageName(file.getOriginalFilename());
+            }
             RegisterEntity entity = registerRepo.update(registerEntity);
-
-
             if (entity != null) {
-
                 updatedDto = new RegisterDTO();
-
                 BeanUtils.copyProperties(entity, updatedDto);
             }
         }
@@ -144,15 +145,10 @@ public class RegisterServiceImpl implements RegisterService {
         System.out.println("sendEmail method is called: " + email);
 
         if (email != null && !email.trim().isEmpty()) {
-
             String otp = InventoryUtil.generateOtp();
-
             Boolean isSent = emailService.sendEmail(email, otp);
-
             if (isSent != null && isSent) {
-
                 Boolean isSaved = registerRepo.saveOtp(email, otp);
-
                 if (isSaved != null && isSaved) {
                     System.out.println("Email sent and OTP saved successfully");
                     return true;
@@ -169,5 +165,22 @@ public class RegisterServiceImpl implements RegisterService {
 
         System.out.println("Email is invalid");
         return false;
+    }
+
+    @Override
+    public RegisterDTO validateOtp(String email, String otp) {
+        System.out.println("invoking validate otp:"+email+" "+otp);
+        RegisterDTO registerDTO=null;
+        if (email!=null && otp!=null){
+            RegisterEntity entity=registerRepo.findEntityByEmail(email);
+
+            if (entity!=null){
+                if (otp.equals(entity.getOtp()))  {
+                    registerDTO = new RegisterDTO();
+                    BeanUtils.copyProperties(entity, registerDTO);
+                }
+            }
+        }
+        return registerDTO;
     }
 }

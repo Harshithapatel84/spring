@@ -32,6 +32,8 @@ public class RegisterDTO {
 
     private MultipartFile file;
 
+    private String imageName;
+
     public RegisterDTO() {
         System.out.println("InventoryDTO created");
     }

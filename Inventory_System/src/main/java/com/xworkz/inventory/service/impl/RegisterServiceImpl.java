@@ -116,7 +116,10 @@ public class RegisterServiceImpl implements RegisterService {
             if (file != null && !file.isEmpty()) {
                 try {
                     byte[] b = file.getBytes();
-                    Path path = Paths.get(InventoryUtil.IMAGE_PATH + file.getOriginalFilename());
+                    //Path path = Paths.get(InventoryUtil.IMAGE_PATH + file.getOriginalFilename());
+                  //  Files.write(path, b);
+                    Path path = Paths.get(InventoryUtil.IMAGE_PATH, file.getOriginalFilename());
+                    Files.createDirectories(path.getParent());
                     Files.write(path, b);
                     System.out.println("file saved successfully");
                 } catch (IOException e) {

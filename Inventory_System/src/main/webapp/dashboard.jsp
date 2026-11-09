@@ -18,6 +18,7 @@
         <h4 class="mb-3">Register Details</h4>
 
         <table class="table table-bordered table-striped">
+
             <tr>
                 <th>Profile Image</th>
                 <td>
@@ -47,6 +48,7 @@
                 <th>Phone Number</th>
                 <td>${registerDto.phNo}</td>
             </tr>
+
         </table>
 
         <div class="d-flex justify-content-between mt-3">
